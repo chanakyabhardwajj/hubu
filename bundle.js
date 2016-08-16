@@ -50,12 +50,12 @@
 	__webpack_require__(47);
 
 	//Adds OrbitControls to aframe.THREE instance
-	__webpack_require__(84);
+	__webpack_require__(83);
 
+	__webpack_require__(84);
 	__webpack_require__(85);
 	__webpack_require__(86);
 	__webpack_require__(87);
-	__webpack_require__(88);
 
 
 	window.aframe = aframe;
@@ -84009,8 +84009,7 @@
 
 
 /***/ },
-/* 83 */,
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85081,7 +85080,7 @@
 	} );
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85141,7 +85140,7 @@
 	});
 
 /***/ },
-/* 86 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85172,7 +85171,7 @@
 	});
 
 /***/ },
-/* 87 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85212,7 +85211,7 @@
 
 
 /***/ },
-/* 88 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85222,28 +85221,36 @@
 	aframe.registerComponent('bargraph', {
 	    schema: {
 	        data: {
-	            // default: [{
-	            //     pos: new THREE.Vector3(1, 1, 1),
-	            //     val: 3
-	            // }],
-	            type: 'array'
+	            default: [{
+	                pos: new THREE.Vector3(1, 1, 1),
+	                val: 3
+	            }],
+	            type: 'array',
+	            stringify: function (value) {
+	                return JSON.stringify(value);
+	            },
+	            parse: function (value) {
+	                return JSON.parse(value);
+	            }
 	        },
 	        color: {
 	            default: "#ffcc01",
 	            type: 'color'
-	        },
-	        stringify: function defaultStringify (value) {
-	            return JSON.stringify(value);
-	        },
-	        parse: function numberParse (value) {
-	            return JSON.parse(value);
 	        }
+	    },
+
+	    init: function() {
+	        this.bars = document.createElement('a-entity');
+	        this.el.appendChild(this.bars);
 	    },
 
 	    update: function (oldData) {
 	        let data = this.data.data;
 	        let color = this.data.color;
-	        // let bars = new THREE.Object3D();
+
+	        while (this.bars.firstChild) {
+	            this.bars.removeChild(this.bars.firstChild);
+	        }
 
 	        data.forEach((d, i) => {
 	            let pos = d.pos;
@@ -85261,18 +85268,17 @@
 	            txt.setAttribute('look-at', "[camera]");
 	            bar.appendChild(txt);
 	            txt.setAttribute('position', {
-	                x: pos.x,
-	                y: pos.y + val + 0.2,
-	                z: pos.z
+	                x: 0,
+	                y: val + 0.1,
+	                z: 0
 	            });
 
-	            // bars.add(bar.object3D);
-	            this.el.appendChild(bar);
-	        });
+	            this.bars.appendChild(bar);
+	        });        
 	    },
 
 	    remove: function () {
-	        // this.el.removeObject3D('bars');
+	        this.el.removeChild(this.bars);
 	    }
 	});
 
