@@ -10,41 +10,42 @@
         <a-light type="ambient" color="#fff"></a-light>
         <a-entity camera="near:0.001;" orbit-controls></a-entity>
         <!--<a-camera target="#target" distance="1" orbit-controls look-controls-enabled=false wasd-controls-enabled=true position="0 0 0" ></a-camera>-->
+
+        <a-entity id="myBarGraph" bargraph></a-entity>
     </a-scene>
 
     <script type="text/javascript">
-        let data = [1, 2, 3, 4, 5, 6];
-        let scene = document.querySelector("a-scene");
-        var docfrag = document.createDocumentFragment();
+        let data = [{
+            pos: new THREE.Vector3(0, 0, 0),
+            val: 3
+        }, {
+            pos: new THREE.Vector3(1, 0, 1),
+            val: 3
+        }, {
+            pos: new THREE.Vector3(2, 1, 2),
+            val: 3
+        }];
+        var scene = document.querySelector('a-scene');
+        if (scene.hasLoaded) {
+            run();
+        } else {
+            scene.addEventListener('loaded', run);
+        }
 
-        data.forEach((d, i) => {
-            let bar = document.createElement('a-box');
-            bar.setAttribute('material', 'color: #ffcc01; roughness: 1; metalness: 0;')
-            bar.setAttribute('height', d/2);
-            bar.setAttribute('width', 0.2);
-            bar.setAttribute('depth', 0.2);
-            bar.setAttribute('position', {
-                x: i,
-                y: d/4,
-                z: i
-            });
+        function run() {
+            var entity = scene.querySelector('#myBarGraph');
+            // entity.setAttribute('bargraph', 'color', "#ff0000");
+            entity.setAttribute('bargraph', 'data', data);
 
-            let txt = document.createElement('a-entity');
-            // <a-entity position="1 0 0" bmfont-text="text: 1"></a-entity>
-            txt.setAttribute('bmfont-text', `text: ${d}`);
-            txt.setAttribute('look-at', "[camera]");
-            bar.appendChild(txt);
-            txt.setAttribute('position', {
-                x: 0,
-                y: d/4 + 0.2,
-                z: 0
-            });
-
-
-            // Inject into docuemnt fragment
-            docfrag.appendChild(bar);
-        });
-        scene.appendChild(docfrag);
+            setTimeout(() => {
+                data.push({
+                    pos: new THREE.Vector3(3, 1, 3),
+                    val: 5
+                });
+                entity.setAttribute('bargraph', 'data', data);
+            }, 1000);
+            
+        }
     </script>
 
 </body>

@@ -48,22 +48,15 @@
 	const extras = __webpack_require__(4);
 	extras.controls.registerAll();
 	__webpack_require__(47);
-	// require('aframe-orbit-controls-component');
-
-	//Add meshline plugin to the THREE instance inside aframe.
-	// require('./three-extras/MeshLine')(aframe.THREE);
-
-	//Adds TrackballControls to aframe.THREE instance
-	// require('./three-extras/TrackballControls');
 
 	//Adds OrbitControls to aframe.THREE instance
-	__webpack_require__(83);
-
 	__webpack_require__(84);
+
 	__webpack_require__(85);
 	__webpack_require__(86);
-	// require('./components/trackball-controls');
 	__webpack_require__(87);
+	__webpack_require__(88);
+
 
 	window.aframe = aframe;
 
@@ -84016,7 +84009,8 @@
 
 
 /***/ },
-/* 83 */
+/* 83 */,
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85087,7 +85081,7 @@
 	} );
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const aframe = __webpack_require__(1);
@@ -85144,44 +85138,6 @@
 	        var scene = this.el.object3D;
 	        scene.remove(scene.getObjectByName("grid"));
 	    }
-	});
-
-/***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const aframe = __webpack_require__(1);
-
-	aframe.registerComponent('gridhelper', {
-	  schema: {
-	    size: { default: 10 },
-	    step: { default: 1 },
-	    colorCenterLine: { default: 0x000000 },
-	    colorGrid: { default: 0x77B6EA }
-	  },
-
-	  /**
-	   * Called once when component is attached. Generally for initial setup.
-	   */
-	  init: function () {
-	    var scene = this.el.object3D;
-	    var data = this.data;
-
-	    var size = data.size;
-	    var step = data.step;
-	    var colorCenterLine = data.colorCenterLine;
-	    var colorGrid = data.colorGrid;
-
-	    var gridHelper = new THREE.GridHelper(size, step);
-	    gridHelper.setColors(colorCenterLine, colorGrid);
-	    gridHelper.name = "gridHelper";
-	    scene.add(gridHelper);
-	  },
-
-	  remove: function () {
-	    var scene = this.el.object3D;
-	    scene.remove(scene.getObjectByName("gridHelper"));
-	  }
 	});
 
 /***/ },
@@ -85254,6 +85210,71 @@
 	    },
 	});
 
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const aframe = __webpack_require__(1);
+	const THREE = aframe.THREE;
+	let coordinates = AFRAME.utils.coordinates;
+
+	aframe.registerComponent('bargraph', {
+	    schema: {
+	        data: {
+	            // default: [{
+	            //     pos: new THREE.Vector3(1, 1, 1),
+	            //     val: 3
+	            // }],
+	            type: 'array'
+	        },
+	        color: {
+	            default: "#ffcc01",
+	            type: 'color'
+	        },
+	        stringify: function defaultStringify (value) {
+	            return JSON.stringify(value);
+	        },
+	        parse: function numberParse (value) {
+	            return JSON.parse(value);
+	        }
+	    },
+
+	    update: function (oldData) {
+	        let data = this.data.data;
+	        let color = this.data.color;
+	        // let bars = new THREE.Object3D();
+
+	        data.forEach((d, i) => {
+	            let pos = d.pos;
+	            let val = d.val;
+
+	            let bar = document.createElement('a-box');
+	            bar.setAttribute('material', `color: ${color}; roughness: 1; metalness: 0;`)
+	            bar.setAttribute('height', val);
+	            bar.setAttribute('width', 0.2);
+	            bar.setAttribute('depth', 0.2);
+	            bar.setAttribute('position', pos);
+
+	            let txt = document.createElement('a-entity');
+	            txt.setAttribute('bmfont-text', `text: ${val}`);
+	            txt.setAttribute('look-at', "[camera]");
+	            bar.appendChild(txt);
+	            txt.setAttribute('position', {
+	                x: pos.x,
+	                y: pos.y + val + 0.2,
+	                z: pos.z
+	            });
+
+	            // bars.add(bar.object3D);
+	            this.el.appendChild(bar);
+	        });
+	    },
+
+	    remove: function () {
+	        // this.el.removeObject3D('bars');
+	    }
+	});
 
 /***/ }
 /******/ ]);
