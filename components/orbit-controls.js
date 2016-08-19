@@ -3,7 +3,7 @@ const THREE = aframe.THREE;
 var isMobile = aframe.utils.isMobile();
 
 aframe.registerComponent('orbit-controls', {
-    dependencies: ['position', 'quaternion'],
+    // dependencies: ['position', 'quaternion'],
 
     schema: {},
 
@@ -24,11 +24,11 @@ aframe.registerComponent('orbit-controls', {
 
     update: function (oldData) {
         this.controls.update();
-        this.el.setAttribute('position', this.proxy.position);
-        this.el.setAttribute('quaternion', this.proxy.quaternion);
+        this.el.object3D.position.copy(this.proxy.position);
+        this.el.object3D.quaternion.copy(this.proxy.quaternion);
     },
 
     tick: function (t) {
         this.update();
-    },
+    }
 });

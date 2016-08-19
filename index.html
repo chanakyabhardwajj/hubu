@@ -3,12 +3,12 @@
 <body>
     <script type="text/javascript" src="bundle.js"></script>
 
-    <a-scene axishelper grid vr-mode-ui="enabled: false">
+    <a-scene stats axishelper grid vr-mode-ui="enabled: false">
         <a-plane position="2.5 0 2.5" width="5" height="5" rotation="-90 0 0" opacity="0.5"></a-plane>
         <a-sky color="#6EBAA7"></a-sky>
         <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
         <a-light type="ambient" color="#fff"></a-light>
-        <a-entity camera="near:0.001;" orbit-controls></a-entity>
+        <a-entity camera orbit-controls></a-entity>
         <!--<a-camera target="#target" distance="1" orbit-controls look-controls-enabled=false wasd-controls-enabled=true position="0 0 0" ></a-camera>-->
 
         <a-entity id="myBarGraph" bargraph></a-entity>
@@ -16,14 +16,14 @@
 
     <script type="text/javascript">
         let data = [{
-            pos: new THREE.Vector3(0, 0, 0),
+            pos: {x:0, y:0,z :0},
+            val: 1
+        }, {
+            pos: {x:1, y:1,z :1},
             val: 3
         }, {
-            pos: new THREE.Vector3(1, 0, 1),
-            val: 3
-        }, {
-            pos: new THREE.Vector3(2, 1, 2),
-            val: 3
+            pos: {x:2, y:2,z :2},
+            val: 4
         }];
         var scene = document.querySelector('a-scene');
         if (scene.hasLoaded) {
@@ -34,17 +34,15 @@
 
         function run() {
             var entity = scene.querySelector('#myBarGraph');
-            entity.setAttribute('bargraph', 'color', "#ff0000");
             entity.setAttribute('bargraph', 'data', data);
 
             setTimeout(() => {
-                data = [];
+                // data = [];
                 data.push({
                     pos: new THREE.Vector3(3, 1, 3),
                     val: 5
                 });
                 entity.setAttribute('bargraph', 'data', data);
-                entity.setAttribute('bargraph', 'color', "#00ff00");
             }, 1000);
 
         }

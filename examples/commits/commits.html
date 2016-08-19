@@ -1,0 +1,16 @@
+<html>
+
+<body>
+    <script type="text/javascript" src="../../bundle.js"></script>
+    <script type="text/javascript" src="commits.js"></script>
+    <a-scene stats axishelper grid vr-mode-ui="enabled: false">
+        <a-plane position="2.5 0 2.5" width="5" height="5" rotation="-90 0 0" opacity="0.5"></a-plane>
+        <a-sky color="#6EBAA7"></a-sky>
+        <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
+        <a-light type="ambient" color="#fff"></a-light>
+        <a-entity camera="near:0.001;" orbit-controls></a-entity>
+        <a-entity id="myBarGraph" bargraph></a-entity>
+    </a-scene>
+</body>
+
+</html>

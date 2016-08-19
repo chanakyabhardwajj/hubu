@@ -1,0 +1,21 @@
+<html>
+
+<body>
+    <script type="text/javascript" src="../../bundle.js"></script>
+    <a-scene debug stats axishelper vr-mode-ui="enabled: false">
+        <a-sky color="#6EBAA7"></a-sky>
+        <a-light type="directional" color="#fff" intensity="0.2" position="-1 2 1"></a-light>
+        <a-light type="ambient" color="#fff"></a-light>
+        <a-entity camera="near:0.001;" orbit-controls></a-entity>
+
+        <a-entity id="myGraph" graph="shape: sphere;">
+            <a-entity axis="dir: x; color: #ff0000; label: X-Axis;"></a-entity>
+            <a-entity axis="dir: y; color: #00ff00; label: Y-Axis;"></a-entity>
+            <a-entity axis="dir: z; color: #0000ff; label: Z-Axis;"></a-entity>
+            <a-entity grid></a-entity>
+        </a-entity>
+    </a-scene>
+    <script type="text/javascript" src="app.js"></script>
+</body>
+
+</html>
