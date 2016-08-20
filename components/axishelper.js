@@ -1,4 +1,4 @@
-const aframe = require('aframe');
+var aframe = require('aframe');
 
 aframe.registerComponent('axishelper', {
   schema: {

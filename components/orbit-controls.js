@@ -1,5 +1,5 @@
-const aframe = require('aframe');
-const THREE = aframe.THREE;
+var aframe = require('aframe');
+var THREE = aframe.THREE;
 var isMobile = aframe.utils.isMobile();
 
 aframe.registerComponent('orbit-controls', {

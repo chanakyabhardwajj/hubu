@@ -1,5 +1,5 @@
-const aframe = require('aframe');
-const THREE = aframe.THREE;
+var aframe = require('aframe');
+var THREE = aframe.THREE;
 
 //https://github.com/spite/THREE.MeshLine
 THREE.MeshLine = function () {
@@ -16,7 +16,6 @@ THREE.MeshLine = function () {
     this.geometry = new THREE.BufferGeometry();
 
     this.widthCallback = null;
-//2869869100
 }
 
 THREE.MeshLine.prototype.setGeometry = function (g, c) {
@@ -349,7 +348,7 @@ THREE.MeshLineMaterial = function (parameters) {
 };
 
 THREE.MeshLineMaterial.prototype = Object.create(THREE.Material.prototype);
-THREE.MeshLineMaterial.prototype.constructor = THREE.MeshLineMaterial;
+THREE.MeshLineMaterial.prototype.varructor = THREE.MeshLineMaterial;
 
 THREE.MeshLineMaterial.prototype.copy = function (source) {
 

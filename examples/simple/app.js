@@ -1,4 +1,4 @@
-const data = [
+var data = [
     {
         x: 0, y: 0, z: 4, val: 3, label: "1st", strokeColor: "#00ff00", labelColor: "#ffffff"
     },
@@ -13,7 +13,7 @@ const data = [
     // },
 ];
 
-let scene = document.querySelector('a-scene');
+var scene = document.querySelector('a-scene');
 if (scene.hasLoaded) {
     run();
 } else {
@@ -21,6 +21,6 @@ if (scene.hasLoaded) {
 }
 
 function run() {
-    let graph = scene.querySelector('#myGraph');
+    var graph = scene.querySelector('#myGraph');
     graph.setAttribute('graph', 'data', data);
 }

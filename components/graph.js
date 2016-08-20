@@ -1,6 +1,6 @@
-const aframe = require('aframe');
-const THREE = aframe.THREE;
-let coordinates = AFRAME.utils.coordinates;
+var aframe = require('aframe');
+var THREE = aframe.THREE;
+var coordinates = AFRAME.utils.coordinates;
 
 aframe.registerComponent('graph', {
     schema: {
@@ -28,21 +28,21 @@ aframe.registerComponent('graph', {
     },
 
     update: function (oldData) {
-        let data = this.data.data;
+        var data = this.data.data;
 
         while (this.bars.firstChild) {
             this.bars.removeChild(this.bars.firstChild);
         }
 
         data.forEach((d, i) => {
-            let bar = document.createElement('a-box');
+            var bar = document.createElement('a-box');
             bar.setAttribute('material', `color: ${d.strokeColor};`)
             bar.setAttribute('height', d.val);
             bar.setAttribute('width', 0.1);
             bar.setAttribute('depth', 0.1);
             bar.setAttribute('position', new THREE.Vector3(d.x, d.y, d.z));
 
-            let txt = document.createElement('a-entity');
+            var txt = document.createElement('a-entity');
             txt.setAttribute('bmfont-text', `text: ${d.label}`);
             txt.setAttribute('color', '#fff');
             txt.setAttribute('look-at', "[camera]");

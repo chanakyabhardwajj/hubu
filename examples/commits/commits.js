@@ -1,8 +1,8 @@
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
+    var varters = '0123456789ABCDEF';
     var color = '#';
     for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
+        color += varters[Math.floor(Math.random() * 16)];
     }
     return color;
 }
@@ -14,9 +14,9 @@ function getWeekNumber(dt) {
     return Math.ceil((((d - new Date(d.getFullYear(), 0, 1)) / 8.64e7) + 1) / 7);
 }
 
-let contribs = fetch("https://api.github.com/repos/facebook/react/stats/contributors").then(res => {
+var contribs = fetch("https://api.github.com/repos/facebook/react/stats/contributors").then(res => {
     res.json().then((res) => {
-        let data = [];
+        var data = [];
         res.reverse().some((r, i) => {
             r.weeks.some((week,k) => {
                 data.push({
@@ -34,7 +34,7 @@ let contribs = fetch("https://api.github.com/repos/facebook/react/stats/contribu
             return i == 3;
         });
 
-        let scene = document.querySelector('a-scene');
+        var scene = document.querySelector('a-scene');
         if (scene.hasLoaded) {
             run();
         } else {

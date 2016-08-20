@@ -1,4 +1,4 @@
-const aframe = require('aframe');
+var aframe = require('aframe');
 
 aframe.registerComponent('grid', {
     schema: {
@@ -13,24 +13,24 @@ aframe.registerComponent('grid', {
      * Called once when component is attached. Generally for initial setup.
      */
     init: function () {
-        let scene = this.el.object3D;
-        let data = this.data;
+        var scene = this.el.object3D;
+        var data = this.data;
 
-        let divisions = data.step;
-        let size = data.size;
-        let color1 = new THREE.Color(data.colorCenterLine);
-        let color2 = new THREE.Color(data.colorGrid);
+        var divisions = data.step;
+        var size = data.size;
+        var color1 = new THREE.Color(data.colorCenterLine);
+        var color2 = new THREE.Color(data.colorGrid);
 
-        let center = divisions / 2;
-        let step = (size * 2) / divisions;
-        let linewidth = 1;//data.linewidth;
-        let vertices = [], colors = [];
+        var center = divisions / 2;
+        var step = (size * 2) / divisions;
+        var linewidth = 1;//data.linewidth;
+        var vertices = [], colors = [];
 
-        for (let i = 0, j = 0, k = - size; i <= divisions; i++ , k += step) {
+        for (var i = 0, j = 0, k = - size; i <= divisions; i++ , k += step) {
             vertices.push(- size, 0, k, size, 0, k);
             vertices.push(k, 0, - size, k, 0, size);
 
-            let color = i === center ? color1 : color2;
+            var color = i === center ? color1 : color2;
 
             color.toArray(colors, j); j += 3;
             color.toArray(colors, j); j += 3;
@@ -38,18 +38,18 @@ aframe.registerComponent('grid', {
             color.toArray(colors, j); j += 3;
         }
 
-        let geometry = new THREE.BufferGeometry();
+        var geometry = new THREE.BufferGeometry();
         geometry.addAttribute('position', new THREE.Float32Attribute(vertices, 3));
         geometry.addAttribute('color', new THREE.Float32Attribute(colors, 3));
 
-        let material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors, linewidth: linewidth, opacity: 0.6 });
-        let mesh = new THREE.LineSegments(geometry, material);
+        var material = new THREE.LineBasicMaterial({ vertexColors: THREE.VertexColors, linewidth: linewidth, opacity: 0.6 });
+        var mesh = new THREE.LineSegments(geometry, material);
         mesh.name = "grid";
         scene.add(mesh);
     },
 
     remove: function () {
-        let scene = this.el.object3D;
+        var scene = this.el.object3D;
         scene.remove(scene.getObjectByName("grid"));
     }
 });
