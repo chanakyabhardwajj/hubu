@@ -1,6 +1,6 @@
 var aframe = require('aframe');
 var THREE = aframe.THREE;
-var isMobile = aframe.utils.isMobile();
+var isMobile = (aframe.utils.isMobile || aframe.utils.device.isMobile)();
 
 aframe.registerComponent('orbit-controls', {
     // dependencies: ['position', 'quaternion'],
